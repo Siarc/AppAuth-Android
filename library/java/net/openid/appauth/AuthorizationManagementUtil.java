@@ -80,6 +80,12 @@ class AuthorizationManagementUtil {
     @SuppressLint("VisibleForTests")
     static AuthorizationManagementResponse responseWith(
             AuthorizationManagementRequest request, Uri uri) {
+
+        if (uri.getFragment() != null){
+            String tempValue = uri.toString().replace("#", "?");
+            uri = Uri.parse(tempValue);
+        }
+
         if (request instanceof AuthorizationRequest) {
             return new AuthorizationResponse.Builder((AuthorizationRequest) request)
                 .fromUri(uri)
